@@ -1,6 +1,8 @@
 let express = require('express');
 let router = express.Router();
-let Post = require('../models/POSTMODELURL')
+let Post = require('../models/post-model');
+let Comment = require('../models/comment-model');
+let SubComment = require('../models/sub-comment-model');
 
 // POST/CREATE - create a new post
 router.post('/posts', (req, res) => {
@@ -34,4 +36,6 @@ router.get('/posts/:id', (req, res) => {
                 data: post
             })
         })
+    Comment.find({postId: req.params.id})
+        .then
 })
