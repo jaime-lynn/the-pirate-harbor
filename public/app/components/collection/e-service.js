@@ -1,8 +1,8 @@
 
 
 function LandingService(){
-    var allPosts = {
-        123: {
+    var allPosts = [
+        {
             id: 123,
             author: "timmy",
             title: "whatever",
@@ -11,7 +11,7 @@ function LandingService(){
             vote: 22,
             content: "My QUestion? "
         },
-        124: {
+        {
             id: 124,
             author: "timmy",
             title: "whatever image",
@@ -20,7 +20,7 @@ function LandingService(){
             vote: 2,
             content: "placehold.it/200x200"
         },
-        125: {
+        {
             id: 125,
             author: "timmy",
             title: "whatever",
@@ -29,7 +29,7 @@ function LandingService(){
             vote: 22,
             content: "google.com"
         }
-    }
+    ]
 
 this.getAllPosts = function(){
     return allPosts
