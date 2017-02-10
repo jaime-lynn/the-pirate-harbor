@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 8080;
 
 // connection.on('error', () => {
 //     console.log('THERE WAS A CONNECTION PROBLEM')
-// });
+// })
 
 // connection.once('open', () => {
 //     console.log('We are now connected to space');
@@ -24,6 +24,14 @@ const PORT = process.env.PORT || 8080;
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-server.listen(PORT, () => {
-    console.log('YEP, it\s working', 'http://localhost:' + PORT);
+server.get('/', (req, res) => {
+    res.render('index.html');
 });
+
+// REQUIRING ROUTES
+
+// USING ROUTES
+
+    server.listen(PORT, () => {
+        console.log('YEP, it\s working', 'http://localhost:' + PORT);
+    });

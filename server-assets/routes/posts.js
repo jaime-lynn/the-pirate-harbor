@@ -1,0 +1,37 @@
+let express = require('express');
+let router = express.Router();
+let Post = require('../models/POSTMODELURL')
+
+// POST/CREATE - create a new post
+router.post('/posts', (req, res) => {
+    Post.create(req.body)
+        .then(post => {
+            res.redirect('/posts/:id')
+        })
+        .catch(error => {
+            res.send({error: error})
+        })
+});
+
+// GET/INDEX - list all posts
+router.get('/posts', (req, res) => {
+    Post.find()
+        .then(posts => {
+            res.send({
+                data: posts
+            })
+        })
+        .catch(error => {
+            res.send({error: error})
+        })
+})
+
+// Show Post with a specific id
+router.get('/posts/:id', (req, res) => {
+    Post.findById(req.params.id)
+        .then(post => {
+            res.send({
+                data: post
+            })
+        })
+})
