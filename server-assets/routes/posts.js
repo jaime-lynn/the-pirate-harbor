@@ -37,5 +37,15 @@ router.get('/posts/:id', (req, res) => {
             })
         })
     Comment.find({postId: req.params.id})
-        .then
+        .then(comments => {
+            res.send({
+                data: comments
+            })
+        })
+        .catch(error => {
+            res.send({error: error})
+        })
+    SubComment.find({})
 })
+
+module.exports = router;
