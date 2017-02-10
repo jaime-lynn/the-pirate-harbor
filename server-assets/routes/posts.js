@@ -8,7 +8,10 @@ let SubComment = require('../models/sub-comment-model');
 router.post('/posts', (req, res) => {
     Post.create(req.body)
         .then(post => {
-            res.redirect('/posts/:id')
+            // res.redirect('/posts')
+            res.send({
+                data: post
+            })
         })
         .catch(error => {
             res.send({error: error})
@@ -30,22 +33,55 @@ router.get('/posts', (req, res) => {
 
 // Show Post with a specific id
 router.get('/posts/:id', (req, res) => {
+    var foundPost;
+    var foundComments;
+    var foundSubcomments;
+    var errors = [];
     Post.findById(req.params.id)
         .then(post => {
-            res.send({
-                data: post
-            })
+            foundPost = post;
+            Comment.find({postId: req.params.id})
+                .then(comments => {
+                    foundComments = comments
+                    SubComment.find({postId: req.params.id})
+                    .then(subcomments => {
+                        foundSubcomments = subcomments;
+                        res.send({
+                            posts: foundPost,
+                            comments: foundComments,
+                            subcomments: foundSubcomments
+                        })
+                    })
+                })
         })
-    Comment.find({postId: req.params.id})
-        .then(comments => {
+        .catch(error => {
+            errors.push(error);
+        })
+})
+
+router.post('/posts/:id/comments', (req, res) => {
+    Comment.create(req.body)
+        .then(comment => {
             res.send({
-                data: comments
+                data: comment
+            });
+            // res.redirect('/posts/' + req.params.id);
+        })
+        .catch(error => {
+            res.send({error: error})
+        })
+})
+
+router.post('/posts/:id/comments/:id/subcomments', (req, res) => {
+    SubComment.create(req.body)
+        .then(subcomment => {
+            res.send({
+                data: subcomment
             })
         })
         .catch(error => {
             res.send({error: error})
         })
-    SubComment.find({})
 })
 
 module.exports = router;
