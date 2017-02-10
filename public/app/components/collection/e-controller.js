@@ -2,12 +2,12 @@
 
 
 var es = new LandingService()
-em = new Vue ({
-    el: '#MainPage',
-    data: {
-        allPosts: {
-        },
-        message: 'Hello Vue'
+Vue.component('mainpage',{
+    data: function(){
+        return {
+            allPosts: {},
+            message: 'Hello Vue'
+        }
     },
     mounted: function() {
         this.getData()
@@ -16,7 +16,14 @@ em = new Vue ({
         getData: function(){
             this.allPosts = es.getAllPosts()
         }
-    }
+    },
+    template: `
+    <div id="MainPage">
+        {{message}}
+        {{allPosts}}
+    </div>
+    
+    `
 
 
 
