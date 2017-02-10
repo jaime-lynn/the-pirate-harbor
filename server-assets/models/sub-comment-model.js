@@ -4,11 +4,12 @@ let ObjectId = Schema.Types.ObjectId
 
 let SubCommentSchemaModel= new Schema({
   content:{type:String, required:true},
-  authorId:{type:ObjectId, ref:'Author', required:true},
+  authorId:{type:ObjectId, ref:'Author'},
   date:{type:Object},
-  votes:{type:Number},
+  votes:{type:Number, default: 0},
   //Relations
-  commentId:{type: ObjectId, required:true},
+  commentId: { type: ObjectId, ref: 'Comment' },
+  postId: { type: ObjectId, ref: 'Post' }
   
 })
 
