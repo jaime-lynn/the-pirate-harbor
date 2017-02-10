@@ -27,8 +27,8 @@ connection.once('open', () => {
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-
 server.use(express.static(__dirname + '/public'))
+
 
 // REQUIRING ROUTES
 let postRoutes = require('./server-assets/routes/posts')
