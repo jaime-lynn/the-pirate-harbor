@@ -5,7 +5,7 @@ let ObjectId = Schema.Types.ObjectId
 let PostSchemaModel= new Schema({
   content:{type:String, required:true},
   title:{type:String, required: true},
-  authorId:{type:ObjectId, ref:'Author'},
+  userId:{type:ObjectId, ref:'User'},
   date: { type: String },
   votes:{type:Number, default: 0},
   //Relations
