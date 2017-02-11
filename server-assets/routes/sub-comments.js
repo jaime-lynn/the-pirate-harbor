@@ -8,48 +8,76 @@ router.post('/posts/:postId/comments/:commentId/subcomments', (req, res) => {
     let newSub = req.body;
     newSub.postId = req.params.postId;
     newSub.commentId = req.params.commentId;
-    newSub.userId = req.sessions.uid;
-    newSub.username = req.user.username;
-    SubComment.create(newSub)
-        .then(subcomment => {
-            res.send({
-                data: subcomment
+    newSub.userId = req.body.user._id;
+    newSub.username = req.body.user.username;
+    if(req.body.user){
+        SubComment.create(newSub)
+            .then(subcomment => {
+                res.send({
+                    data: subcomment
+                })
             })
+            .catch(error => {
+                res.send({ error: error })
+            })
+    } else {
+        res.send({ message: 'You must be logged in to do that' })
+    }
+})
+
+router.delete('/posts/:postId/comments/:commentId/subcomments/:subId', (req, res) => {
+    SubComment.findById(req.params.subId)
+        .then(subcomment => {
+            if (post.userId == req.body.user._id) {
+                SubComment.findByIdAndRemove(req.params.subId)
+                    .then(subComment => {
+                        console.log(subComment)
+                        res.redirect('/posts/' + req.params.postId)
+                    })
+                    .catch(error => {
+                        res.send({ error: error })
+                    })
+            } else {
+                res.send({ message: 'You must be logged in, or this post does not belong to you.' })
+            }
         })
         .catch(error => {
-            res.send({error: error})
+            res.send({ error: error })
         })
 })
 
-router.delete('/posts/:postId/comments/:commentId/subcomments/:subId', (req, res)=>{
-    SubComment.findByIdAndRemove(req.params.subId)
-        .then(subComment =>{
-            console.log(subComment)
-            res.redirect('/posts/' + req.params.postId)
+router.put('/posts/:postId/comments/:commentId/subcomments/:subId', (req, res) => {
+    SubComment.findById(req.params.subId)
+        .then(subcomment => {
+            if (post.userId == req.body.user._id) {
+                SubComment.findByIdAndUpdate(req.params.subId, { $set: req.body })
+                    .then(subComment => {
+                        res.redirect('/posts/' + req.params.postId)
+                    })
+                    .catch(error => {
+                        res.send({ error: error })
+                    })
+            } else {
+                res.send({ message: 'You must be logged in, or this post does not belong to you.' })
+            }
         })
         .catch(error => {
-            res.send({error: error})
-        })
-})
-
-router.put('/posts/:postId/comments/:commentId/subcomments/:subId', (req, res) =>{
-    SubComment.findByIdAndUpdate(req.params.subId, {$set: req.body})
-        .then(subComment => {
-            res.redirect('/posts/' + req.params.postId)
-        })
-        .catch(error => {
-            res.send({error: error})
+            res.send({ error: error })
         })
 })
 
 router.put('/posts/:postId/comments/:commentId//subcomments/:subId/votes', (req, res) => {
-    SubComment.findByIdAndUpdate(req.params.subId, {$set: {votes: req.body.votes}})
-        .then(subcomment => {
-            res.send({data: subcomment})
-        })
-        .catch(error => {
-            res.send({error: error})
-        })
+    if (req.body.user) {
+        SubComment.findByIdAndUpdate(req.params.subId, { $set: { votes: req.body.votes } })
+            .then(subcomment => {
+                res.send({ data: subcomment })
+            })
+            .catch(error => {
+                res.send({ error: error })
+            })
+    } else {
+        res.send({ message: 'You must be logged in to vote' })
+    }
 })
 
 module.exports = router;

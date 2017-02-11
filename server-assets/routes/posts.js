@@ -7,9 +7,9 @@ let SubComment = require('../models/sub-comment-model');
 // POST/CREATE - create a new post
 router.post('/posts', (req, res) => {
     let newPost = req.body;
-    newPost.userId = req.sessions.uid;
-    newPost.username = req.user.username;
-    if(req.sessions.uid){
+    newPost.userId = req.body.user._id;
+    newPost.username = req.body.user.username;
+    if(req.body.user){
         Post.create(newPost)
             .then(post => {
                     // res.redirect('/posts')
@@ -67,31 +67,47 @@ router.get('/posts/:id', (req, res) => {
 })
 
 router.delete('/posts/:id', (req, res)=>{
-    Post.findByIdAndRemove(req.params.id)
+    Post.findById(req.params.id)
         .then(post =>{
-            res.redirect('/posts')
+            if(post.userId == req.body.user._id) {
+                Post.findByIdAndRemove(req.params.id)
+                    .then(post =>{
+                        res.redirect('/posts')
+                    })
+                    .catch(error => {
+                        res.send({error: error})
+                    })
+                } else {
+                res.send({message: 'You must be logged in, or this post does not belong to you.'})
+            }
         })
-        .catch(error => {
+        .catch(error =>{
             res.send({error: error})
         })
 })
 
 router.put('/posts/:id', (req, res) =>{
-    if(post.userId == req.sessions.uid) {
-        Post.findByIdAndUpdate(req.params.id, {$set: req.body})
-        .then(post => {
-                res.redirect('/posts/' + req.params.id)
-            })
-        .catch(error => {
+    Post.findById(req.params.id)
+        .then(post =>{
+            if(post.userId == req.body.user._id) {
+                Post.findByIdAndUpdate(req.params.id, {$set: req.body})
+                .then(post => {
+                        res.redirect('/posts/' + req.params.id)
+                    })
+                .catch(error => {
+                    res.send({error: error})
+                })
+            } else {
+                res.send({message: 'You must be logged in, or this post does not belong to you.'})
+            }
+        })
+        .catch(error =>{
             res.send({error: error})
         })
-    } else {
-        res.send({message: 'You must be logged in, or this post does not belong to you.'})
-    }
 })
 
 router.put('/posts/:id/votes', (req, res) => {
-    if(req.sessions.uid){
+    if(req.body.user){
         Post.findByIdAndUpdate(req.params.id, {$set: {votes: req.body.votes}})
             .then(post => {
                     res.send({data: post})
