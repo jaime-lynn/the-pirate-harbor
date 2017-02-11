@@ -17,11 +17,34 @@
 </head>
 
 <body>
-
-
     <div id="app">
-<h1> <strong> THE PIRATE HARBOR </strong> </h1>
-    <h1>Hello Pirates</h1>
+
+
+        <nav>
+            <div class="nav-wrapper">
+                <a class="site logo">The Pirate Harbor</a>
+                <ul class="right">
+                    <li><a @click="toggleLogin" href="#">Log in</a></li>
+                    <li><a @click="toggleRegister" href="#">Register</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    <div class="row" v-if="showLogin">
+        <div class="login-container">
+                <form v-on:submit.prevent="login" class="col s2">
+                        <div class="input-field col s12">
+                            <input placeholder="username" v-model="username" type="text">
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="password" v-model="password" type="text">
+                        </div>
+                    <a @click="login" class="waves-effect waves-light btn">Submit</a>
+                </form>
+            </div>
+        </div>
+        <h1> <strong> THE PIRATE HARBOR </strong> </h1>
+        <h1>Hello Pirates</h1>
 
 
 <!--<mainpage></mainpage>-->
@@ -31,10 +54,15 @@
 
 
 
-</div>
+
+
+
 
     </div>
 
+    </div>
+
+    <script src="./app/main-service.js"></script>
     <script src="./app/components/collection/e-service.js"></script>
     <script src="./app/components/collection/e-controller.js"></script>
     

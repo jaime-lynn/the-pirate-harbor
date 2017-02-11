@@ -1,7 +1,31 @@
+var ms = new MainService()
+
 new Vue({
     el: "#app",
     data: {
-        user:{}
+        user:{},
+        username:'',
+        password: '',
+        existing: false,
+        newUser: false,
+        showLogin: false
+    },
+    methods:{
+        login: function(){
+           if(existing){
+            ms.login(this.username, this.password)
+           } else if(newUser){
+            ms.register(this.username, this.password)
+           }
+        },
+        toggleLogin: function(){
+            this.showLogin = !this.showLogin
+            this.existing= !this.existing
+        },
+        toggleRegister: function(){
+            this.showLogin = !this.showLogin
+            this.newUser = !this.newUser
+        }
     }
     
 
