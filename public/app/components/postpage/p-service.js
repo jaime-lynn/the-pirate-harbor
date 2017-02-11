@@ -60,15 +60,14 @@ function PostService() {
     }
 
     this.deletePost = function (post, cb) {
-        debugger
         let url = '/posts/' + post.postId;
         $.ajax({
             url: url,
             type: 'DELETE',
             data: post,
             success: function (result) {
-                console.log(result)
-                cb();
+                getData();
+                Materialize.toast('Your post is deleted.', 2000);
             },
             fail: function (error) {
                 console.log(error);
@@ -77,7 +76,6 @@ function PostService() {
     }
 
     this.deleteComment = function (comment, cb) {
-        debugger
         let url = '/posts/' + comment.postId + '/comments/' + comment.commentId;
         $.ajax({
             url: url,
@@ -94,7 +92,6 @@ function PostService() {
     }
 
     this.deleteSubcomment = function (subcomment, cb) {
-        debugger
         let url = '/posts/' + subcomment.postId + '/comments/' + subcomment.commentId + '/subcomments/' + subcomment.subcommentId;
         $.ajax({
             url: url,

@@ -187,7 +187,7 @@ Vue.component('postpage', {
           </form>
           </div>
 
-        <hr>
+        <hr style="height:1px;border:none;color:#333;background-color:#333;" />
 
         <div v-for="comment in comments">
             <div class="comment-div">

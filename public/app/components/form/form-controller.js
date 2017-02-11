@@ -27,6 +27,7 @@ Vue.component('submit', {
         }
     },
     template: `
+    <div class="container">
 <div v-if="this.$root.$data.submitPage" class="row">
     <form v-on:submit.prevent="submit" class="col s12">
         <div class="row">
@@ -56,6 +57,7 @@ Vue.component('submit', {
        
         <a @click="submit" class="waves-effect waves-light btn">Submit</a>
     </form>
+</div>
 </div>
 `
 })
