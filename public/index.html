@@ -21,10 +21,11 @@
 
         <nav>
             <div class="nav-wrapper">
-                <a class="site logo">The Pirate Harbor</a>
+                <a @click="toggleMain" class="site logo">The Pirate Harbor</a>
                     <ul v-if="user.username" class="right">
                     <li>Hello, Pirate {{user.username}}!</li>
-                    <li><a @click="toggleLogout" href="#">Logout</a></li>
+                    <li><a @click="toggleSubmit"href="#">new post</a></li>
+                    <li><a @click="toggleLogout" href="#">walk the plank</a></li>
                 </ul>
                 <ul v-else class="right">
                     <li><a @click="toggleLogin" href="#">Log in</a></li>
@@ -51,7 +52,7 @@
 
 
 <mainpage></mainpage>
-<!--<postpage></postpage>-->
+<postpage></postpage>
 <submit></submit>
 
 
