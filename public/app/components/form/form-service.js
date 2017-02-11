@@ -1,6 +1,6 @@
 function FormService(){
     var form = {}
-this.submit = function(title, content, type, user){
+this.submit = function(title, content, type, user, cb){
    var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
@@ -17,6 +17,7 @@ let newSubmit = {
     date: now
 }
 $.post("/posts", newSubmit, function(result){
+    cb();
 
     Materialize.toast(result.message, 2000);
 })

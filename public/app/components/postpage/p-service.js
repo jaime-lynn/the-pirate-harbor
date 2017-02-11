@@ -59,7 +59,7 @@ function PostService() {
         })
     }
 
-    this.deletePost = function (post) {
+    this.deletePost = function (post, cb) {
         debugger
         let url = '/posts/' + post.postId;
         $.ajax({
@@ -68,6 +68,7 @@ function PostService() {
             data: post,
             success: function (result) {
                 console.log(result)
+                cb();
             },
             fail: function (error) {
                 console.log(error);
@@ -75,7 +76,7 @@ function PostService() {
         })
     }
 
-    this.deleteComment = function (comment) {
+    this.deleteComment = function (comment, cb) {
         debugger
         let url = '/posts/' + comment.postId + '/comments/' + comment.commentId;
         $.ajax({
@@ -84,6 +85,7 @@ function PostService() {
             data: comment,
             success: function (result) {
                 Materialize.toast(result.message, 2000);
+                cb();
             },
             fail: function (error) {
                 console.log(error);
@@ -91,7 +93,7 @@ function PostService() {
         })
     }
 
-    this.deleteSubcomment = function (subcomment) {
+    this.deleteSubcomment = function (subcomment, cb) {
         debugger
         let url = '/posts/' + subcomment.postId + '/comments/' + subcomment.commentId + '/subcomments/' + subcomment.subcommentId;
         $.ajax({
@@ -100,6 +102,7 @@ function PostService() {
             data: subcomment,
             success: function (result) {
                 Materialize.toast(result.message, 2000);
+                cb();
             },
             fail: function (error) {
                 console.log(error);

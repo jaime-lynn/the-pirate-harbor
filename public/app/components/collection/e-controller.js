@@ -8,7 +8,10 @@ Vue.component('mainpage', {
     },
     mounted: function () {
         this.getData()
-        
+        var vm = this;
+        window.getData = function(){
+            vm.getData();
+        }
     },
 
     methods: {
@@ -24,15 +27,23 @@ Vue.component('mainpage', {
             this.$root.$data.mainPage = false
         },  //Started Adding here.
         upvotePost: function (post) {
-            post.votes += 1;
-            post.user = this.$root.$data.user;
-            es.updatePostVotes(post);
+            if(this.$root.$data.user.username){
+                post.votes += 1;
+                post.user = this.$root.$data.user;
+                es.updatePostVotes(post);
+            } else {
+                Materialize.toast('You must be logged in to vote', 2000);
+            }
         },
 
         downvotePost: function (post) {
-            post.votes -= 1;
-            post.user = this.$root.$data.user;
-            es.updatePostVotes(post);
+            if(this.$root.$data.user.username){
+                post.votes -= 1;
+                post.user = this.$root.$data.user;
+                es.updatePostVotes(post);
+            } else {
+                Materialize.toast('You must be logged in to vote', 2000);
+            }
         }
     },
     //if you can read this you are here.
@@ -61,9 +72,9 @@ Vue.component('mainpage', {
         <div class="flex-right">
             <h4><span @click="openPost(post._id)">{{post.title}} - {{post.username}}</span></h4>
             <a class="content-size":href="post.content">{{post.content}}</a>
-            <p>Vote: {{post.vote}}</p>
-             <a @click="tryVote(up)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
-              <a @click="tryVote(down)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
+            <p>Vote: {{post.votes}}</p>
+             <a @click="upvotePost(post)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
+              <a @click="downvotePost(post)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
             <p>Date: {{post.date}}</p>
             </div>
              <div class="flex-right">
@@ -73,9 +84,9 @@ Vue.component('mainpage', {
          <div v-if="post.type == 'image'" class="flex-container">
          <div>
             <h4 @click="openPost(post._id)">{{post.title}} - {{post.username}}</h4>
-            <p>Vote: {{post.vote}}</p>
-             <a @click="tryVote(up)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
-              <a @click="tryVote(down)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
+            <p>Vote: {{post.votes}}</p>
+             <a @click="upvotePost(post)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
+              <a @click="downvotePost(post)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
             
             <p>Date:{{post.date}}</p>
             </div>

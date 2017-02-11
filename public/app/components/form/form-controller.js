@@ -14,7 +14,9 @@ Vue.component('submit', {
         submit: function () {
 
             if (this.$root.$data.user.username) {
-                fs.submit(this.title, this.content, this.uploadType, this.$root.$data.user)
+                fs.submit(this.title, this.content, this.uploadType, this.$root.$data.user, function(){
+                    getData();
+                })
 
             } else {
                 Materialize.toast('You must have a username before posting', 3000)
