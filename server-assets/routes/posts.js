@@ -6,12 +6,18 @@ let SubComment = require('../models/sub-comment-model');
 
 // POST/CREATE - create a new post
 router.post('/posts', (req, res) => {
-    Post.create(req.body)
+    let newPost = req.body;
+    newPost.userId = req.sessions.uid;
+    Post.create(newPost)
         .then(post => {
-            // res.redirect('/posts')
-            res.send({
-                data: post
-            })
+            if(req.sessions.uid){
+                // res.redirect('/posts')
+                res.send({
+                    data: post
+                })
+            } else {
+                res.send({message: 'You must be logged in to do that'})
+            }
         })
         .catch(error => {
             res.send({error: error})
@@ -59,29 +65,43 @@ router.get('/posts/:id', (req, res) => {
         })
 })
 
-router.post('/posts/:id/comments', (req, res) => {
-    Comment.create(req.body)
-        .then(comment => {
-            res.send({
-                data: comment
-            });
-            // res.redirect('/posts/' + req.params.id);
+router.delete('/posts/:id', (req, res)=>{
+    Post.findByIdAndRemove(req.params.id)
+        .then(post =>{
+            res.redirect('/posts')
         })
         .catch(error => {
             res.send({error: error})
         })
 })
 
-router.post('/posts/:id/comments/:id/subcomments', (req, res) => {
-    SubComment.create(req.body)
-        .then(subcomment => {
-            res.send({
-                data: subcomment
-            })
+router.put('/posts/:id', (req, res) =>{
+    Post.findByIdAndUpdate(req.params.id, {$set: req.body})
+        .then(post => {
+            if(post.userId == req.sessions.uid) {
+                res.redirect('/posts/' + req.params.id)
+            } else {
+                res.send({ message: 'You need to log in or this post doesn\'t belong to you!' })
+            }
         })
         .catch(error => {
             res.send({error: error})
         })
 })
+
+router.put('/posts/:id/votes', (req, res) => {
+    Post.findByIdAndUpdate(req.params.id, {$set: {votes: req.body.votes}})
+        .then(post => {
+            if(req.sessions.uid){
+                res.send({data: post})
+            } else {
+                res.send({message: 'Log in please' })
+            }
+        })
+        .catch(error => {
+            res.send({error: error})
+        })
+})
+
 
 module.exports = router;
