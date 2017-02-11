@@ -8,14 +8,18 @@ new Vue({
         password: '',
         existing: false,
         newUser: false,
-        showLogin: false
+        showLogin: false,
+        mainPage: true,
+        postPage: false,
+        postId: '',
+        submitPage: false
     },
     methods: {
         login: function () {
             if (this.existing) {
                 ms.login(this.username, this.password, this.assignUser)
             } else if (this.newUser) {
-                ms.register(this.username, this.password, this.assignUser)   
+                ms.register(this.username, this.password, this.assignUser)
             }
         },
         assignUser: function (user) {
@@ -33,14 +37,24 @@ new Vue({
             this.showLogin = !this.showLogin
             this.newUser = !this.newUser
         },
-        toggleLogout: function(){
-        this.user= {}
-        this.username= ''
-        this.password= ''
-        this.existing= false
-        this.newUser= false
-        this.showLogin= false
-            
+        toggleLogout: function () {
+            this.user = {}
+            this.username = ''
+            this.password = ''
+            this.existing = false
+            this.newUser = false
+            this.showLogin = false
+
+        },
+        toggleSubmit: function () {
+            this.postPage = false
+            this.mainPage = false
+            this.submitPage = true
+        },
+        toggleMain: function () {
+            this.postPage = false
+            this.mainPage = true
+            this.submitPage = false
         }
     }
 

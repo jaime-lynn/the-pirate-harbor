@@ -81,7 +81,7 @@ Vue.component('postpage', {
         }
     },
     template: `
-    <div id="postpage">
+    <div v-if="this.$root.$data.postPage"  id="postpage">
        <p>{{post.title}}</p>
        <p>{{post.username}}</p>
         <p>{{post.content}}</p>

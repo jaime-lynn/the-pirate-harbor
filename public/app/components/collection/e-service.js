@@ -3,7 +3,7 @@
 function LandingService(){
 
     this.getAllPosts = function(cb){
-        debugger
+       
         $.get('/posts',{}, cb)
         }
 }

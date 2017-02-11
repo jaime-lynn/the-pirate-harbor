@@ -25,7 +25,7 @@ Vue.component('submit', {
         }
     },
     template: `
-<div class="row">
+<div v-if="this.$root.$data.submitPage" class="row">
     <form v-on:submit.prevent="submit" class="col s12">
         <div class="row">
             <div class="input-field col s12">
