@@ -21,6 +21,9 @@ new Vue({
         assignUser: function (user) {
             this.user._id = user.data._id
             this.user.username = user.data.username
+            this.showLogin = false
+            this.newUser = false
+            this.existing = false
         },
         toggleLogin: function () {
             this.showLogin = !this.showLogin
@@ -29,6 +32,15 @@ new Vue({
         toggleRegister: function () {
             this.showLogin = !this.showLogin
             this.newUser = !this.newUser
+        },
+        toggleLogout: function(){
+        this.user= {}
+        this.username= ''
+        this.password= ''
+        this.existing= false
+        this.newUser= false
+        this.showLogin= false
+            
         }
     }
 

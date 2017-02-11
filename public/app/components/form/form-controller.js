@@ -6,18 +6,22 @@ Vue.component('submit', {
         return {
             title: '',
             content: '',
-            uploadType: '',
-            user: {
-                username: "Rachel",
-                password: "IhearBananas",
-                token: "123khj234"
-            },
+            uploadType: 'question',
+            user:this.$root.$data.user._id
         }
     },
     methods: {
         submit: function () {
-            debugger
-            fs.submit(this.title, this.content, this.uploadType, this.user)
+
+            if (this.$root.$data.user.username) {
+                fs.submit(this.title, this.content, this.uploadType, this.$root.$data.user)
+
+            } else {
+                Materialize.toast('You must have a username before posting', 3000)
+            }
+            this.title = ''
+            this.content = ''
+
         }
     },
     template: `

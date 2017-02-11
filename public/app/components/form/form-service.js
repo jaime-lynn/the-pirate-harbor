@@ -1,6 +1,7 @@
 function FormService(){
     var form = {}
 this.submit = function(title, content, type, user){
+   
 let newSubmit = {
     title:  title,
     content: content,
@@ -8,11 +9,16 @@ let newSubmit = {
     user: user,
     date: Date.now()
 }
-form = newSubmit
-console.log(form)
-//this is where we will do a post request later
+$.post("/posts", newSubmit, function(result){
+
+    Materialize.toast(result.message, 2000);
+})
+
+
 } 
 
 
 
 }
+
+

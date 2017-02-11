@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="app/assets/styles.css">
 
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
 </head>
 
@@ -23,8 +22,8 @@
         <nav>
             <div class="nav-wrapper">
                 <a class="site logo">The Pirate Harbor</a>
-                <ul v-if="user.username" class="right">
-                    <li>Hello, Pirate {{ user.username }}!</li>
+                    <ul v-if="user.username" class="right">
+                    <li>Hello, Pirate {{user.username}}!</li>
                     <li><a @click="toggleLogout" href="#">Logout</a></li>
                 </ul>
                 <ul v-else class="right">
@@ -51,19 +50,14 @@
         <h1>Hello Pirates</h1>
 
 
-<!--<mainpage></mainpage>-->
-<postpage></postpage>
+<mainpage></mainpage>
+<!--<postpage></postpage>-->
 <submit></submit>
 
 
 
 
-<<<<<<< HEAD
-        <mainpage></mainpage>
-        <!--<postpage></postpage>-->
-        <submit></submit>
-=======
->>>>>>> 8086b223813aa10b87dbcad183172cb0cf7e9cff
+
 
 
 
@@ -71,14 +65,15 @@
     </div>
 
     </div>
-
-    <script src="./app/main-service.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script src="./app/main-service.js"></script>
     <script src="./app/components/collection/e-service.js"></script>
     <script src="./app/components/collection/e-controller.js"></script>
     
-    <script src="./app/components/postpage/p-service.js"></script>
-    <script src="./app/components/postpage/p-controller.js"></script>
+    <!--<script src="./app/components/postpage/p-service.js"></script>
+    <script src="./app/components/postpage/p-controller.js"></script>-->
     
     <script src="./app/components/form/form-service.js"></script>
     <script src="./app/components/form/form-controller.js"></script>
