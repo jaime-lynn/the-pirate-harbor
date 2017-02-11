@@ -17,12 +17,21 @@ Vue.component('mainpage', {
         setData: function (result) {
             this.allPosts = result.data
         },
-        openPost:function(postId){
-            debugger
+        openPost: function (postId) {
             this.$root.$data.postId = postId
-            // this.$postpage.$methods.getSinglePost();
             this.$root.$data.postPage = true
             this.$root.$data.mainPage = false
+        },  //Started Adding here.
+        upvotePost: function (post) {
+            post.votes += 1;
+            post.user = this.$root.$data.user;
+            es.updatePostVotes(post);
+        },
+
+        downvotePost: function (post) {
+            post.votes -= 1;
+            post.user = this.$root.$data.user;
+            es.updatePostVotes(post);
         }
     },
     //if you can read this you are here.
@@ -36,10 +45,10 @@ Vue.component('mainpage', {
         <div>
             <h4><span @click="openPost(post._id)">{{post.title}} - {{post.username}}</span></h4> 
             <span class="content-size">{{post.content}}</span> 
-            <p>Vote: {{post.vote}}</p>
-            <a @click="tryVote(up)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
-              <a @click="tryVote(down)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
-            <p>Date: <timeago :since="post.date" :auto-update="60"></timeago></p>  
+            <p>Vote: {{post.votes}}</p>
+            <a @click="upvotePost(post)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
+              <a @click="downvotePost(post)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
+            <!--<p>Date: <timeago :since="post.date" :auto-update="60"></timeago></p>-->  
             </div>
             <div class="flex-right">
             <img src="http://www.clipartkid.com/images/47/pirate-flag-3TGDtV-clipart.png"></img>
@@ -47,7 +56,7 @@ Vue.component('mainpage', {
         </div>
         <div v-if="post.type == 'link'" class="flex-container">
         <div class="flex-right">
-            <h4>{{post.title}} - {{post.username}}</h4>
+            <h4><span @click="openPost(post._id)">{{post.title}} - {{post.username}}</span></h4>
             <a class="content-size":href="post.content">{{post.content}}</a>
             <p>Vote: {{post.vote}}</p>
              <a @click="tryVote(up)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
@@ -60,7 +69,7 @@ Vue.component('mainpage', {
         </div>
          <div v-if="post.type == 'image'" class="flex-container">
          <div>
-            <h4>{{post.title}} - {{post.username}}</h4>
+            <h4 @click="openPost(post._id)">{{post.title}} - {{post.username}}</h4>
             <p>Vote: {{post.vote}}</p>
              <a @click="tryVote(up)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
               <a @click="tryVote(down)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>

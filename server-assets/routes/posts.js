@@ -73,7 +73,7 @@ router.delete('/posts/:id', (req, res)=>{
             if(post.userId == req.body.user._id) {
                 Post.findByIdAndRemove(req.params.id)
                     .then(post =>{
-                        res.redirect('/posts')
+                        res.send({message: 'Your post will be deleted.'})
                     })
                     .catch(error => {
                         res.send({error: error})

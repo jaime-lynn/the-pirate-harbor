@@ -29,8 +29,7 @@ router.delete('/posts/:postId/comments/:commentId', (req, res) => {
             if (comment.userId == req.body.user._id) {
                 Comment.findByIdAndRemove(req.params.commentId)
                     .then(comment => {
-                        console.log(comment)
-                        res.redirect('/posts/' + req.params.postId)
+                        res.send({ message: 'Your comment will be deleted.' })
                     })
                     .catch(error => {
                         res.send({ error: error })
