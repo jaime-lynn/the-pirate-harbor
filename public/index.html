@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/css?family=EB+Garamond|Ruslan+Display" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="app/assets/styles.css">
 
 
@@ -20,55 +21,62 @@
 
 
         <nav>
-            <div class="nav-wrapper">
-                <a @click="toggleMain" class="site logo">The Pirate Harbor</a>
-                    <ul v-if="user.username" class="right">
-                    <li>Hello, Pirate {{user.username}}!</li>
-                    <li><a @click="toggleSubmit"href="#">new post</a></li>
-                    <li><a @click="toggleLogout" href="#">walk the plank</a></li>
-                </ul>
-                <ul v-else class="right">
-                    <li><a @click="toggleLogin" href="#">Log in</a></li>
-                    <li><a @click="toggleRegister" href="#">Register</a></li>
-                </ul>
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper">
+                        <a @click="toggleMain" class="site logo">The Pirate Harbor</a>
+                        <ul v-if="user.username" class="right">
+                            <li>Ahoy, Pirate {{user.username}}!</li>
+                            <li><a @click="toggleSubmit" href="#">new post</a></li>
+                            <li><a @click="toggleLogout" href="#">walk the plank</a></li>
+                        </ul>
+                        <ul v-else class="right">
+                            <li @click="toggleLogin"><a href="#">Log in</a></li>
+                            <li @click="toggleRegister" ><a href="#">Register</a></li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
 
         </nav>
-    <div class="row" v-if="showLogin">
-        <div class="login-container">
+        <div class="row" v-if="showLogin">
+            <div class="login-container">
                 <form v-on:submit.prevent="login()" class="col s2">
-                        <div class="input-field col s12">
-                            <input placeholder="username" v-model="username" type="text">
-                        </div>
-                        <div class="input-field col s12">
-                            <input placeholder="password" v-model="password" type="text">
-                        </div>
+                    <div class="input-field col s12">
+                        <input placeholder="username" v-model="username" type="text">
+                    </div>
+                    <div class="input-field col s12">
+                        <input placeholder="password" v-model="password" type="text">
+                    </div>
                     <button type="submit" class="waves-effect waves-light btn">Submit</button>
                 </form>
             </div>
         </div>
-        <h1> <strong> THE PIRATE HARBOR </strong> </h1>
-        <h1>Hello Pirates</h1>
+        
+        <h1>Ahoy, Pirates</h1>
+         <!--<img class="main-image" src="http://www.clipartkid.com/images/47/pirate-flag-3TGDtV-clipart.png" alt="pirate">-->
+         <hr>
 
 
-<mainpage></mainpage>
-<postpage></postpage>
-<submit></submit>
+        <mainpage></mainpage>
+        <postpage></postpage>
+        <submit></submit>
 
 
     </div>
 
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://use.fontawesome.com/ab705d82f0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script src="./app/main-service.js"></script>
     <script src="./app/components/collection/e-service.js"></script>
     <script src="./app/components/collection/e-controller.js"></script>
-    
+
     <!--<script src="./app/components/postpage/p-service.js"></script>
     <script src="./app/components/postpage/p-controller.js"></script>-->
-    
+
     <script src="./app/components/form/form-service.js"></script>
     <script src="./app/components/form/form-controller.js"></script>
     <script src="./app/app.js"></script>

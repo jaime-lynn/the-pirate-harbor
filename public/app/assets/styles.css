@@ -2,6 +2,46 @@
     display: flex;
     justify-content: flex-end
 }
+.nav-wrapper{
+    background-color: #212121;
+}
+.btn{
+    background-color: #b71c1c;
+}
+.btn:hover{
+    background-color: #b71c1c;
+}
+.logo{
+    font-size: 36px;
+    font-family: 'Ruslan Display', cursive;
+}
+h1{
+    font-family: 'Ruslan Display', cursive;
+    text-align: center;
+}
+img{
+    height: 200px;
+    width: 200px;
+
+}
+.move{
+    margin-left: 20px;
+    margin-right:20px;
+    font-family: 'EB Garamond', serif;
+}
+.content-size{
+    font-size: 20px;
+}
+.main-image{
+    margin-left: 712px;
+}
+.flex-container{
+    display: flex;
+    justify-content: space-between
+}
+.flex-right{
+
+}
 
 
 
