@@ -4,18 +4,19 @@ function LandingService(){
     var allPosts = [
         {
             id: 123,
-            user: "Jamie Lacivita",
+            user: {username:"Jamie Lacivita", token:"someSessionUID"},
             title: "How to buy a cat",
             comments: [{}],
             date: "1/2/13",
             vote: 22,
             content: "How do I buy a cat?",
             type: "question"
+
             
         },
         {
             id: 124,
-            user: "Rachel Mason",
+            user: {username:"Jamie Lacivita", token:"someSessionUID"},
             title: "whatever link",
             comments: [{}],
             date: "1/2/13",
@@ -25,7 +26,7 @@ function LandingService(){
         },
         {
             id: 125,
-            user: "Arg the pirate",
+            user: {username:"Jamie Lacivita", token:"someSessionUID"},
             title: "this is the title of the image",
             comments: [{}],
             date: "1/2/13",
