@@ -1,52 +1,54 @@
-function PostService(){   
+function PostService() {
 
-<<<<<<< HEAD
+    this.getSinglePost = function (postId, cb) {
+        let url = '/posts/' + postId;
+        $.get(url, {}, cb);
+    }
 
-function PostService(){
+    this.addNewComment = function (createdComment, cb) {
+        let url = '/posts/' + createdComment.postId + '/comments'
+        $.post(url, createdComment, cb);
+    }
 
-// var singlePost = { 
-//     message: "test message",
-//     posts:  {
-//     _id: "589e3ae25f190131d88f1072",
-//     title: "Zmudakann!!",
-//     content: "sure, yeah, sr",
-//     __v: 0,
-//     comments: [],
-//     votes: 3
-//     },
-//   comments: [],
-//   subcomments: [],
- 
-// }
-       
-var singlePost = { 
-    message: "test message",
-    posts:  {
-    _id: "589e3ae25f190131d88f1072",
-    title: "Zmudakann!!",
-    content: 'https://openclipart.org/image/2400px/svg_to_png/220801/Pirate-Flag.png',
-    __v: 0,
-    comments: [],
-    votes: 3,
-    type: 'image'
-    },
-  comments: [],
-  subcomments: [],
- 
-=======
-this.getSinglePost = function(postId, cb){
-    let url = '/posts/' + postId;
-    $.get(url, {}, cb);
->>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
+    this.addNewSubcomment = function(createdSubcomment, cb){
+        let url = '/posts/' + createdSubcomment.postId + '/comments/' + createdSubcomment.commentId + '/subcomments'
+        $.post(url, createdSubcomment, cb);
+    }
+
+    this.updatePostVotes = function (post) {
+        let url = '/posts/' + post._id + '/votes';
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: post,
+            success: function (result) {
+                console.log("Thar she blows! -- a vote has been tallied.")
+            }
+
+        })
+
+    }
+
+
+        this.updateCommentVotes = function (comment) {
+            debugger
+        let url = '/posts/' + comment.postId + '/comments/' + comment._id + '/votes';
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            data: comment,
+            success: function (result) {
+                console.log(result)
+            },
+            fail: function(error){
+                console.log(error);
+            }
+
+        })
+
+    }
+
 }
-
-this.addNewComment = function(createdComment, cb){
-    let url = '/posts/' + createdComment.postId + '/comments'
-    $.post(url, createdComment, cb);
-}
-
-}
-
 
 
 

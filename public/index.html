@@ -22,7 +22,7 @@
         <nav>
             <div class="nav-wrapper">
                 <a class="site logo">The Pirate Harbor</a>
-                    <ul v-if="user.username" class="right">
+                <ul v-if="user.username" class="right">
                     <li>Hello, Pirate {{user.username}}!</li>
                     <li><a @click="toggleLogout" href="#">Logout</a></li>
                 </ul>
@@ -33,15 +33,15 @@
             </div>
 
         </nav>
-    <div class="row" v-if="showLogin">
-        <div class="login-container">
+        <div class="row" v-if="showLogin">
+            <div class="login-container">
                 <form v-on:submit.prevent="login()" class="col s2">
-                        <div class="input-field col s12">
-                            <input placeholder="username" v-model="username" type="text">
-                        </div>
-                        <div class="input-field col s12">
-                            <input placeholder="password" v-model="password" type="text">
-                        </div>
+                    <div class="input-field col s12">
+                        <input placeholder="username" v-model="username" type="text">
+                    </div>
+                    <div class="input-field col s12">
+                        <input placeholder="password" v-model="password" type="text">
+                    </div>
                     <button type="submit" class="waves-effect waves-light btn">Submit</button>
                 </form>
             </div>
@@ -50,54 +50,37 @@
         <h1>Hello Pirates</h1>
 
 
-<<<<<<< HEAD
-<mainpage>
-</mainpage>
-<!--<postpage></postpage>
-<submit></submit>-->
-=======
-<<<<<<< HEAD
-<mainpage></mainpage>
-<!--<postpage></postpage>-->
-<submit></submit>
->>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
+        <!--<mainpage></mainpage>-->
+        <postpage></postpage>
+        <!--<submit></submit>-->
 
-
-
-
-
-
-
-=======
-<!--<mainpage></mainpage>-->
-<postpage></postpage>
-<!--<submit></submit>-->
->>>>>>> 953c55ddfb60a16bb30869f7455f520e1fd70a9a
 
 
     </div>
-<<<<<<< HEAD
-    <!--JQUERY CDN-->
+
+
+
+    </div>
+
+    <!-- LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-=======
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script src="https://use.fontawesome.com/b915c6e2c8.js"></script>
 
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
->>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
+    <!-- SERVICES -->
     <script src="./app/main-service.js"></script>
     <script src="./app/components/collection/e-service.js"></script>
-    <script src="./app/components/collection/e-controller.js"></script>
-    
-    <!--<script src="./app/components/postpage/p-service.js"></script>
-    <script src="./app/components/postpage/p-controller.js"></script>-->
-    
+    <script src="./app/components/postpage/p-service.js"></script>
     <script src="./app/components/form/form-service.js"></script>
-    <script src="./app/components/form/form-controller.js"></script>
-    <script src="./app/app.js"></script>
 
-    <!--<script src="app.js"></script>-->
+    <!-- CONTROLLERS -->
+    <script src="./app/components/collection/e-controller.js"></script>
+    <script src="./app/components/postpage/p-controller.js"></script>
+    <script src="./app/components/form/form-controller.js"></script>
+
+    <!-- INIT -->
+    <script src="./app/app.js"></script>
 
 </body>
 

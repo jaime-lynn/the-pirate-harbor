@@ -1,121 +1,123 @@
-var ps = new PostService() 
-Vue.component('postpage',{
-    data: function(){
+var ps = new PostService()
+Vue.component('postpage', {
+    data: function () {
         return {
             post: {},
-<<<<<<< HEAD
-            postTitle: '',
-            postContent: '',
-            postMessage: '',
-            postId: '',
-            postComments: '',
-            postComment: '',
-            postSubcomments: '',
-            postVotes: '',
-            type: ''
-=======
             comments: [],
-            subComments: [],
+            subcomments: [],
             showCommentForm: false,
-            newComment: ''
->>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
+            newComment: '',
+            newSubcomment: '',
+            showSubcommentForm: false,
+            activeComment: ''
         }
     },
-    mounted: function(){
+    mounted: function () {
         this.getSinglePost();
     },
     methods: {
-<<<<<<< HEAD
-        getData: function(){
-            var postData = ps.getSinglePost()
-            //debugger
-            //this.post = postData
-            this.postTitle = postData.posts.title
-            this.postContent = postData.posts.content
-            this.postMessage = postData.message
-            this.postId = postData.posts._id
-            this.postComments = postData.posts.comments 
-            this.postComment = postData.comments 
-            this.postSubcomments = postData.subcomments 
-            this.postVotes = postData.posts.votes
-            this.type = postData.posts.type
-=======
-        getSinglePost: function(){
+        getSinglePost: function () {
             // let postId = this.$root.$data.currentPostId;
             let postId = '589ec40d15bf7d4632a43696'
             ps.getSinglePost(postId, this.setPost);
         },
-        setPost: function(data){
+        setPost: function (data) {
             this.post = data.posts;
             this.comments = data.comments;
             this.subComments = data.subComments;
         },
-        displayCommentForm: function(){
+        displayCommentForm: function () {
             this.showCommentForm = !this.showCommentForm;
         },
-        addComment: function(){
+        displaySubcommentForm: function (commentId) {
+            this.showSubcommentForm = !this.showSubcommentForm;
+            this.activeComment = commentId;
+        },
+        addComment: function () {
             let createdComment = {
                 content: this.newComment,
-                user: this.$root.$data.user,
+                userId: this.$root.$data.user._id,
+                username: this.$root.$data.user.username,
                 postId: '589ec40d15bf7d4632a43696'
                 // postId: this.$root.$data.currentPostId
             }
             ps.addNewComment(createdComment, this.getSinglePost)
->>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
+            this.newComment = ''
+        },
+        addSubcomment: function (comment) {
+            let createdSubcomment = {
+                content: this.newSubcomment,
+                commentId: comment._id,
+                userId: this.$root.$data.user._id,
+                username: this.$root.$data.user.username,
+                postId: '589ec40d15bf7d4632a43696'
+            }
+            ps.addNewSubcomment(createdSubcomment, this.getSinglePost)
+            this.newSubcomment = ''
+        },
+        upvotePost: function () {
+            this.post.votes += 1;
+            let sentPost = this.post;
+            sentPost.user = this.$root.$data.user;
+            ps.updatePostVotes(sentPost);
+        },
+        downvotePost: function () {
+            this.post.votes -= 1;
+            let sentPost = this.post;
+            sentPost.user = this.$root.$data.user;
+            ps.updatePostVotes(sentPost);
+        },
+
+        upvoteComment: function (comment) {
+            comment.votes += 1;
+            comment.user = this.$root.$data.user;
+            ps.updateCommentVotes(comment);
+        },
+
+        downvoteComment: function (comment) {
+            comment.votes -= 1;
+            comment.user = this.$root.$data.user;
+            ps.updateCommentVotes(comment);
         }
     },
     template: `
     <div id="postpage">
-
-<<<<<<< HEAD
-       <p>{{postTitle}}</p>
-        <p>{{postMessage}}</p>
-        <p>{{postId}}</p>
-        <p>{{postVotes}}</p>
-        <p>{{postContent}}</p>
-        <p>{{postComments}}</p>
-        <p>{{postComment}}</p>
-        <p>{{postSubcomments}}</p>
-        <p>All above this is good.</p>
-
-        <div v-if="type == 'link'">
-            <p>This is the vue for a link.</p> 
-            <p>We need data for the username form the server.</p>
-            <p>Vote: {{postVotes}}</p>
-             <a :href="postContent">{{postContent}}</a>
-            <p>We need data for the date form the server.</p>
-        </div>
-
-        <div v-if="type == 'question'">
-            <p>This is the vue for a question.</p> 
-            <p>We need data for the username form the server.</p>
-            <p>Vote: {{postVotes}}</p>
-            <p>{{postContent}}      </p>
-            <p>We need data for the date form the server.</p>
-        </div>
-
-        <div v-if="type == 'image'">
-            <p>This is the vue for a image.</p> 
-            <p>We need data for the username form the server.</p>
-            <p>Vote: {{postVotes}}</p>
-            <img  width="200" :src="postContent">
-            <p>We need data for the date form the server.</p>
-        </div>
-     
-
-       <hr>
-       </div>
-=======
        <p>{{post.title}}</p>
        <p>{{post.username}}</p>
         <p>{{post.content}}</p>
         <p>{{post.date}}</p>
         <p>{{post.votes}}</p>
+        <button @click="upvotePost"><i class="fa fa-beer"></i></button>
+        <button @click="downvotePost"><i class="fa fa-bomb"></i></button>
+
+        <hr>
 
         <div v-for="comment in comments">
             <div>
                 <p>{{ comment.content }}</p>
                 <p>{{ comment.username }}</p>
+                <p>{{ comment.votes }}</p>
+
+        <button @click="upvoteComment(comment)"><i class="fa fa-beer"></i></button>
+        <button @click="downvoteComment(comment)"><i class="fa fa-bomb"></i></button>
+        <a href="#modal1" @click="displaySubcommentForm(comment._id)" class="waves-effect waves-light btn"><i class="fa fa-commenting"></i></a>
+
+        <div v-if="showSubcommentForm">
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+            <h4>Add Yer Insults</h4>
+            
+            <form @submit.prevent="addSubcomment(comment)">
+            <textarea id="textarea1" class="materialize-textarea" v-model="newSubcomment"></textarea>
+
+            </div>
+            <div class="modal-footer">
+            <button class="model-action modal-close waves-effect waves-light btn" type="submit">Shout</button>
+            </form>
+            </div>
+        </div>
+        </div>
+
                 <div v-for="subcomment in subcomments">
                     <div v-if="subcomment.commentId == comment._id">
                         <p>{{ subcomment.content }}</p>
@@ -132,11 +134,12 @@ Vue.component('postpage',{
             <form @submit.prevent="addComment">
             <textarea id="textarea1" class="materialize-textarea" v-model="newComment"></textarea>
           <button class="waves-effect waves-light btn" type="submit">Submit</button>
+          </form>
           </div>
->>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
+
     </div>
         `
- 
+
 
 
 })

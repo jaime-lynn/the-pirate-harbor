@@ -67,7 +67,7 @@ router.put('/posts/:postId/comments/:commentId', (req, res) => {
 })
 
 router.put('/posts/:postId/comments/:commentId/votes', (req, res) => {
-    if (req.body.user) {
+    if (req.body.user.username) {
         Comment.findByIdAndUpdate(req.params.commentId, { $set: { votes: req.body.votes } })
             .then(comment => {
                 res.send({ data: comment })
