@@ -1,44 +1,14 @@
+function PostService(){   
 
-
-function PostService(){
-
-// var singlePost = { 
-//     message: "test message",
-//     posts:  {
-//     _id: "589e3ae25f190131d88f1072",
-//     title: "Zmudakann!!",
-//     content: "sure, yeah, sr",
-//     __v: 0,
-//     comments: [],
-//     votes: 3
-//     },
-//   comments: [],
-//   subcomments: [],
- 
-// }
-       
-var singlePost = { 
-    message: "test message",
-    posts:  {
-    _id: "589e3ae25f190131d88f1072",
-    title: "Zmudakann!!",
-    content: ,
-    __v: 0,
-    comments: [],
-    votes: 3
-    },
-  comments: [],
-  subcomments: [],
- 
-}
-    
-
-this.getSinglePost = function(){
-    return singlePost
+this.getSinglePost = function(postId, cb){
+    let url = '/posts/' + postId;
+    $.get(url, {}, cb);
 }
 
-
-
+this.addNewComment = function(createdComment, cb){
+    let url = '/posts/' + createdComment.postId + '/comments'
+    $.post(url, createdComment, cb);
+}
 
 }
 

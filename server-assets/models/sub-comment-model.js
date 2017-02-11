@@ -11,7 +11,8 @@ let SubCommentSchemaModel= new Schema({
   userId: { type: ObjectId, ref: 'User' },
   username: { type: String },
   commentId: { type: ObjectId, ref: 'Comment' },
-  postId: { type: ObjectId, ref: 'Post' }
+  postId: { type: ObjectId, ref: 'Post' },
+  // subcomments: [{ type: ObjectId, ref: 'SubComment' }]
   
 })
 
