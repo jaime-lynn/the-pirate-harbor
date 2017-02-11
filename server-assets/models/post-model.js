@@ -7,6 +7,7 @@ let PostSchemaModel= new Schema({
   title:{type:String, required: true},
   date: { type: String },
   votes:{type:Number, default: 0},
+  type: { type: String },
   //Relations
   userId:{type:ObjectId, ref:'User'},
   username: { type: String },
