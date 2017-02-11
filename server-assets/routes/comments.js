@@ -10,16 +10,20 @@ router.post('/posts/:id/comments', (req, res) => {
     newComm.userId = req.sessions.uid;
     newComm.username = req.user.username;
     newComm.postId = req.params.id;
-    Comment.create(newComm)
-        .then(comment => {
-            res.send({
-                data: comment
-            });
-            // res.redirect('/posts/' + req.params.id);
-        })
-        .catch(error => {
-            res.send({error: error})
-        })
+    if(req.sessions.uid){
+        Comment.create(newComm)
+            .then(comment => {
+                res.send({
+                    data: comment
+                });
+                // res.redirect('/posts/' + req.params.id);
+            })
+            .catch(error => {
+                res.send({error: error})
+            })
+    } else {
+        res.send({message: 'You must be logged in to do that'})
+    }
 })
 
 router.delete('/posts/:postId/comments/:commentId', (req, res)=>{

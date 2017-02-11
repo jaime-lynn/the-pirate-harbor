@@ -10,16 +10,16 @@ router.post('/posts', (req, res) => {
     newPost.userId = req.sessions.uid;
     newPost.username = req.user.username;
     if(req.sessions.uid){
-    Post.create(newPost)
-        .then(post => {
-                // res.redirect('/posts')
-                res.send({
-                    data: post
-                })
-        })
-        .catch(error => {
-            res.send({error: error})
-        })
+        Post.create(newPost)
+            .then(post => {
+                    // res.redirect('/posts')
+                    res.send({
+                        data: post
+                    })
+            })
+            .catch(error => {
+                res.send({error: error})
+            })
     } else {
         res.send({message: 'You must be logged in to do that'})
     }

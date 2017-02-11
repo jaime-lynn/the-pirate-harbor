@@ -41,6 +41,6 @@ UserModel.methods.validatePassword = function(password){
     })
 }
 
-let UserModel = mongoose.model('User', UserModel)
+let User = mongoose.model('User', UserModel)
 
-module.exports = UserModel
+module.exports = User

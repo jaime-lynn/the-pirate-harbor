@@ -2,7 +2,7 @@ let session = require('express-session');
 let MongoDBStore = require('connect-mongodb-session')(session);
 
 let store = new MongoDBStore({
-    url: 'mongodb://pirates:123password@ds050869.mlab.com:50869/pirate-harbor',
+    uri: 'mongodb://pirates:123password@ds050869.mlab.com:50869/pirate-harbor',
     collection: 'mySessions'
 });
 
