@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="app/assets/styles.css">
 
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
 </head>
 
@@ -23,7 +22,11 @@
         <nav>
             <div class="nav-wrapper">
                 <a class="site logo">The Pirate Harbor</a>
-                <ul class="right">
+                    <ul v-if="user.username" class="right">
+                    <li>Hello, Pirate {{user.username}}!</li>
+                    <li><a @click="toggleLogout" href="#">Logout</a></li>
+                </ul>
+                <ul v-else class="right">
                     <li><a @click="toggleLogin" href="#">Log in</a></li>
                     <li><a @click="toggleRegister" href="#">Register</a></li>
                 </ul>
@@ -32,14 +35,14 @@
         </nav>
     <div class="row" v-if="showLogin">
         <div class="login-container">
-                <form v-on:submit.prevent="login" class="col s2">
+                <form v-on:submit.prevent="login()" class="col s2">
                         <div class="input-field col s12">
                             <input placeholder="username" v-model="username" type="text">
                         </div>
                         <div class="input-field col s12">
                             <input placeholder="password" v-model="password" type="text">
                         </div>
-                    <a @click="login" class="waves-effect waves-light btn">Submit</a>
+                    <button type="submit" class="waves-effect waves-light btn">Submit</button>
                 </form>
             </div>
         </div>
@@ -47,29 +50,48 @@
         <h1>Hello Pirates</h1>
 
 
+<<<<<<< HEAD
 <mainpage>
 </mainpage>
 <!--<postpage></postpage>
 <submit></submit>-->
+=======
+<<<<<<< HEAD
+<mainpage></mainpage>
+<!--<postpage></postpage>-->
+<submit></submit>
+>>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
 
 
 
 
 
 
+
+=======
+<!--<mainpage></mainpage>-->
+<postpage></postpage>
+<!--<submit></submit>-->
+>>>>>>> 953c55ddfb60a16bb30869f7455f520e1fd70a9a
 
 
     </div>
-
-    </div>
+<<<<<<< HEAD
     <!--JQUERY CDN-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+=======
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+>>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
     <script src="./app/main-service.js"></script>
     <script src="./app/components/collection/e-service.js"></script>
     <script src="./app/components/collection/e-controller.js"></script>
     
-    <script src="./app/components/postpage/p-service.js"></script>
-    <script src="./app/components/postpage/p-controller.js"></script>
+    <!--<script src="./app/components/postpage/p-service.js"></script>
+    <script src="./app/components/postpage/p-controller.js"></script>-->
     
     <script src="./app/components/form/form-service.js"></script>
     <script src="./app/components/form/form-controller.js"></script>

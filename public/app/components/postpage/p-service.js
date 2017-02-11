@@ -1,4 +1,6 @@
+function PostService(){   
 
+<<<<<<< HEAD
 
 function PostService(){
 
@@ -31,15 +33,17 @@ var singlePost = {
   comments: [],
   subcomments: [],
  
+=======
+this.getSinglePost = function(postId, cb){
+    let url = '/posts/' + postId;
+    $.get(url, {}, cb);
+>>>>>>> e3fd78d18a69e7ac5134a0fb42722b019a09b441
 }
-    
 
-this.getSinglePost = function(){
-    return singlePost
+this.addNewComment = function(createdComment, cb){
+    let url = '/posts/' + createdComment.postId + '/comments'
+    $.post(url, createdComment, cb);
 }
-
-
-
 
 }
 

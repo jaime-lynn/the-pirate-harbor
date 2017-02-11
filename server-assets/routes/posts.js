@@ -12,9 +12,10 @@ router.post('/posts', (req, res) => {
     if(req.body.user){
         Post.create(newPost)
             .then(post => {
-                    // res.redirect('/posts')
+                    // res.redirect('/posts/' + post._id)
                     res.send({
-                        data: post
+                        data: post,
+                        message: 'Successfully created post!'
                     })
             })
             .catch(error => {
