@@ -108,7 +108,7 @@ router.put('/posts/:id', (req, res) =>{
 })
 
 router.put('/posts/:id/votes', (req, res) => {
-    if(req.body.user){
+    if(req.body.user.username){
         Post.findByIdAndUpdate(req.params.id, {$set: {votes: req.body.votes}})
             .then(post => {
                     res.send({data: post})
