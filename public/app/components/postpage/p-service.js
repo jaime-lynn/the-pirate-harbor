@@ -22,10 +22,11 @@ var singlePost = {
     posts:  {
     _id: "589e3ae25f190131d88f1072",
     title: "Zmudakann!!",
-    content: ,
+    content: 'https://openclipart.org/image/2400px/svg_to_png/220801/Pirate-Flag.png',
     __v: 0,
     comments: [],
-    votes: 3
+    votes: 3,
+    type: 'image'
     },
   comments: [],
   subcomments: [],
