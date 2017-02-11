@@ -17,15 +17,12 @@
 a:hover{
     color:#b71c1c;
 }
-#type1{
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{
 background-color:#b71c1c;
+border: 2px solid #b71c1c;
 }
-#type2{
-  background-color:#b71c1c;  
-}
-#type3{
-   background-color:#b71c1c; 
-}
+
+
 .logo{
     font-size: 36px;
     font-family: 'Ruslan Display', cursive;

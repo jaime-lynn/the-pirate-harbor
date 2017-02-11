@@ -40,15 +40,15 @@ Vue.component('submit', {
         <p> Type of Content </p>
       
         <div>
-        <input value="image" name="type" id="type1" type="radio" v-model="uploadType"/>
+        <input class="red-radio" value="image" name="type" id="type1" type="radio" v-model="uploadType"/>
         <label for="type1">Image</label>
         </div>
         <div>
-        <input value="question" name="type" id="type2"  type="radio" v-model="uploadType"/>
+        <input  class="red-radio" value="question" name="type" id="type2"  type="radio" v-model="uploadType"/>
         <label for="type2">Question</label>
         </div>
         <div>
-        <input value="link" name="type" id="type3"  type="radio" v-model="uploadType"/>
+        <input class="red-radio" value="link" name="type" id="type3"  type="radio" v-model="uploadType"/>
         <label for="type3">Link</label>
         </div>
        
