@@ -51,7 +51,7 @@ Vue.component('mainpage', {
     <div v-if="this.$root.$data.mainPage">
 
     
-
+    <div class="container">
        <div class="move" v-for="post in allPosts">
         <div v-if="post.type == 'question'" class="flex-container">
         <div>
@@ -95,6 +95,7 @@ Vue.component('mainpage', {
             </div>
          </div> 
        <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+       </div>
        </div>
     </div>
         `

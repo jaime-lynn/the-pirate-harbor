@@ -121,7 +121,6 @@ Vue.component('postpage', {
             }
         },
         deletePost: function(){
-            var vm = this;
             let postToDelete = {
                 postId: this.post._id,
                 user: {
@@ -177,9 +176,9 @@ Vue.component('postpage', {
             <p>{{post.content}}</p>
         </div>
         <p>Votes: {{post.votes}}</p>
-        <button @click="upvotePost"><i class="fa fa-beer"></i></button>
-        <button @click="downvotePost"><i class="fa fa-bomb"></i></button>
-            <button v-if="post.username == this.$root.$data.user.username" @click="deletePost"><i class="fa fa-trash"></i></button>
+        <button class="waves-effect waves-light btn" @click="upvotePost"><i class="fa fa-beer"></i></button>
+        <button class="waves-effect waves-light btn" @click="downvotePost"><i class="fa fa-bomb"></i></button>
+            <button class="waves-effect waves-light btn" v-if="post.username == this.$root.$data.user.username" @click="deletePost"><i class="fa fa-trash"></i></button>
             <button @click="displayCommentForm" class="waves-effect waves-light btn">Add Comment</button>
             <div v-if="showCommentForm">
             <form @submit.prevent="addComment">
@@ -191,14 +190,14 @@ Vue.component('postpage', {
         <hr>
 
         <div v-for="comment in comments">
-            <div>
+            <div class="comment-div">
                 <p>{{ comment.content }}</p>
                 <p>{{ comment.username }}</p>
                 <p>{{ comment.votes }}</p>
 
-        <button @click="upvoteComment(comment)"><i class="fa fa-beer"></i></button>
-        <button @click="downvoteComment(comment)"><i class="fa fa-bomb"></i></button>
-        <button v-if="comment.username == currentUser.username" @click="deleteComment(comment)"><i class="fa fa-trash"></i></button>
+        <button class="waves-effect waves-light btn" @click="upvoteComment(comment)"><i class="fa fa-beer"></i></button>
+        <button class="waves-effect waves-light btn" @click="downvoteComment(comment)"><i class="fa fa-bomb"></i></button>
+        <button class="waves-effect waves-light btn" v-if="comment.username == currentUser.username" @click="deleteComment(comment)"><i class="fa fa-trash"></i></button>
         <a @click="displaySubcommentForm(comment)" class="waves-effect waves-light btn"><i class="fa fa-commenting"></i></a>
 
         <div v-if="comment.showSubcommentForm">
@@ -209,14 +208,14 @@ Vue.component('postpage', {
         </div>
 
                 <div v-for="subcomment in subcomments">
-                    <div v-if="subcomment.commentId == comment._id">
+                    <div class="subcomment-div" v-if="subcomment.commentId == comment._id">
                         <p>{{ subcomment.content }}</p>
                         <p>{{ subcomment.username }}</p>
                         <p>{{ subcomment.date }}</p>
                         <p>{{ subcomment.votes }}</p>
-                    <button @click="upvoteSubcomment(subcomment)"><i class="fa fa-beer"></i></button>
-                    <button @click="downvoteSubcomment(subcomment)"><i class="fa fa-bomb"></i></button>
-                    <button v-if="subcomment.username == currentUser.username" @click="deleteSubcomment(subcomment)"><i class="fa fa-trash"></i></button>
+                    <button class="waves-effect waves-light btn" @click="upvoteSubcomment(subcomment)"><i class="fa fa-beer"></i></button>
+                    <button class="waves-effect waves-light btn" @click="downvoteSubcomment(subcomment)"><i class="fa fa-bomb"></i></button>
+                    <button class="waves-effect waves-light btn" v-if="subcomment.username == currentUser.username" @click="deleteSubcomment(subcomment)"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>
             </div>
