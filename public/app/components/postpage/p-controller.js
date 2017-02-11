@@ -7,39 +7,46 @@ Vue.component('postpage', {
             subcomments: [],
             showCommentForm: false,
             newComment: '',
-            newSubcomment: '',
-            showSubcommentForm: false,
-            activeComment: ''
+            newSubcomment: ''
+
         }
     },
-    mounted: function () {
-        this.getSinglePost();
+    computed: {
+        postId: function(){
+            return this.$root.$data.postId
+        }
+    },
+    watch: {
+        postId: function(){
+            this.getSinglePost();
+        }
     },
     methods: {
         getSinglePost: function () {
-            // let postId = this.$root.$data.currentPostId;
-            let postId = '589ec40d15bf7d4632a43696'
+            let postId = this.$root.$data.postId;
             ps.getSinglePost(postId, this.setPost);
         },
         setPost: function (data) {
+            debugger
             this.post = data.posts;
+            data.comments.forEach(c => {c.showSubcommentForm = false})
             this.comments = data.comments;
-            this.subComments = data.subComments;
+            this.comments.showSubcommentForm = false;
+            this.subcomments = data.subcomments;
         },
         displayCommentForm: function () {
             this.showCommentForm = !this.showCommentForm;
         },
-        displaySubcommentForm: function (commentId) {
-            this.showSubcommentForm = !this.showSubcommentForm;
-            this.activeComment = commentId;
+        displaySubcommentForm: function (comment) {
+            // Vue.set(comment, 'showSubcommentForm', !comment.showCommentForm)
+            comment.showSubcommentForm = !comment.showSubcommentForm;
         },
         addComment: function () {
             let createdComment = {
                 content: this.newComment,
                 userId: this.$root.$data.user._id,
                 username: this.$root.$data.user.username,
-                postId: '589ec40d15bf7d4632a43696'
-                // postId: this.$root.$data.currentPostId
+                postId: this.$root.$data.postId
             }
             ps.addNewComment(createdComment, this.getSinglePost)
             this.newComment = ''
@@ -50,7 +57,7 @@ Vue.component('postpage', {
                 commentId: comment._id,
                 userId: this.$root.$data.user._id,
                 username: this.$root.$data.user.username,
-                postId: '589ec40d15bf7d4632a43696'
+                postId: this.$root.$data.postId
             }
             ps.addNewSubcomment(createdSubcomment, this.getSinglePost)
             this.newSubcomment = ''
@@ -67,17 +74,25 @@ Vue.component('postpage', {
             sentPost.user = this.$root.$data.user;
             ps.updatePostVotes(sentPost);
         },
-
         upvoteComment: function (comment) {
             comment.votes += 1;
             comment.user = this.$root.$data.user;
             ps.updateCommentVotes(comment);
         },
-
         downvoteComment: function (comment) {
             comment.votes -= 1;
             comment.user = this.$root.$data.user;
             ps.updateCommentVotes(comment);
+        },
+        upvoteSubcomment: function(subcomment){
+            subcomment.votes += 1;
+            subcomment.user = this.$root.$data.user;
+            ps.updateSubcommentVotes(subcomment);
+        },
+        downvoteSubcomment: function(subcomment){
+            subcomment.votes -= 1;
+            subcomment.user = this.$root.$data.user;
+            ps.updateSubcommentVotes(subcomment);
         }
     },
     template: `
@@ -100,22 +115,13 @@ Vue.component('postpage', {
 
         <button @click="upvoteComment(comment)"><i class="fa fa-beer"></i></button>
         <button @click="downvoteComment(comment)"><i class="fa fa-bomb"></i></button>
-        <a href="#modal1" @click="displaySubcommentForm(comment._id)" class="waves-effect waves-light btn"><i class="fa fa-commenting"></i></a>
+        <a @click="displaySubcommentForm(comment)" class="waves-effect waves-light btn"><i class="fa fa-commenting"></i></a>
 
-        <div v-if="showSubcommentForm">
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-            <h4>Add Yer Insults</h4>
-            
+        <div v-if="comment.showSubcommentForm">
             <form @submit.prevent="addSubcomment(comment)">
             <textarea id="textarea1" class="materialize-textarea" v-model="newSubcomment"></textarea>
-
-            </div>
-            <div class="modal-footer">
             <button class="model-action modal-close waves-effect waves-light btn" type="submit">Shout</button>
             </form>
-            </div>
-        </div>
         </div>
 
                 <div v-for="subcomment in subcomments">
@@ -124,6 +130,8 @@ Vue.component('postpage', {
                         <p>{{ subcomment.username }}</p>
                         <p>{{ subcomment.date }}</p>
                         <p>{{ subcomment.votes }}</p>
+                    <button @click="upvoteSubcomment(subcomment)"><i class="fa fa-beer"></i></button>
+                    <button @click="downvoteSubcomment(subcomment)"><i class="fa fa-bomb"></i></button>
                     </div>
                 </div>
             </div>

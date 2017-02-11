@@ -24,14 +24,12 @@ function PostService() {
             success: function (result) {
                 console.log("Thar she blows! -- a vote has been tallied.")
             }
-
         })
-
     }
 
 
-        this.updateCommentVotes = function (comment) {
-            debugger
+    this.updateCommentVotes = function (comment) {
+        debugger
         let url = '/posts/' + comment.postId + '/comments/' + comment._id + '/votes';
         $.ajax({
             url: url,
@@ -43,9 +41,23 @@ function PostService() {
             fail: function(error){
                 console.log(error);
             }
-
         })
+    }
 
+    this.updateSubcommentVotes = function (subcomment) {
+        debugger
+        let url = '/posts/' + subcomment.postId + '/comments/' + subcomment.commentId + '/subcomments/' + subcomment._id + '/votes';
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            data: subcomment,
+            success: function (result) {
+                console.log(result)
+            },
+            fail: function(error){
+                console.log(error);
+            }
+        })
     }
 
 }

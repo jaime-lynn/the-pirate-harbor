@@ -18,7 +18,9 @@ Vue.component('mainpage', {
             this.allPosts = result.data
         },
         openPost:function(postId){
+            debugger
             this.$root.$data.postId = postId
+            // this.$postpage.$methods.getSinglePost();
             this.$root.$data.postPage = true
             this.$root.$data.mainPage = false
         }
