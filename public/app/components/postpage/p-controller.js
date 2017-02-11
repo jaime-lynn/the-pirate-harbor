@@ -121,6 +121,7 @@ Vue.component('postpage', {
             }
         },
         deletePost: function(){
+            var vm = this;
             let postToDelete = {
                 postId: this.post._id,
                 user: {
@@ -128,9 +129,12 @@ Vue.component('postpage', {
                     _id: this.$root.$data.user._id
                 }
             }
-            ps.deletePost(postToDelete);
+            ps.deletePost(postToDelete, function(){
+                vm.getSinglePost();
+            });
         },
         deleteComment: function(comment){
+            var vm = this;
             let commentToDelete = {
                 commentId: comment._id,
                 postId: comment.postId,
@@ -139,9 +143,12 @@ Vue.component('postpage', {
                     _id: this.$root.$data.user._id
                 }
             }
-            ps.deleteComment(commentToDelete);
+            ps.deleteComment(commentToDelete, function(){
+                vm.getSinglePost();
+            });
         },
         deleteSubcomment: function(subcomment){
+            var vm = this;
             let subcommentToDelete = {
                 subcommentId: subcomment._id,
                 postId: subcomment.postId,
@@ -151,7 +158,9 @@ Vue.component('postpage', {
                     _id: this.$root.$data.user._id
                 }
             }
-            ps.deleteSubcomment(subcommentToDelete);
+            ps.deleteSubcomment(subcommentToDelete, function(){
+                vm.getSinglePost();
+            });
         }
     },
     template: `
