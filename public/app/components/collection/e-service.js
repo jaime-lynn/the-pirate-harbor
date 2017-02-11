@@ -35,6 +35,9 @@ this.getAllPosts = function(){
     return allPosts
 }
 
+
+
+
 }
 
 
