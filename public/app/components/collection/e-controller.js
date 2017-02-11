@@ -37,7 +37,7 @@ Vue.component('mainpage', {
             <p>Vote: {{post.vote}}</p>
             <a @click="tryVote(up)" class="waves-effect waves-light btn"><i class="fa fa-beer" aria-hidden="true"></i></a>
               <a @click="tryVote(down)" class="waves-effect waves-light btn"><i class="fa fa-bomb" aria-hidden="true"></i></a>
-            <p>Date: {{post.date}}</p>  
+            <p>Date: <timeago :since="post.date" :auto-update="60"></timeago></p>  
             </div>
             <div class="flex-right">
             <img src="http://www.clipartkid.com/images/47/pirate-flag-3TGDtV-clipart.png"></img>
