@@ -23,7 +23,11 @@
         <nav>
             <div class="nav-wrapper">
                 <a class="site logo">The Pirate Harbor</a>
-                <ul class="right">
+                <ul v-if="user.username" class="right">
+                    <li>Hello, Pirate {{ user.username }}!</li>
+                    <li><a @click="toggleLogout" href="#">Logout</a></li>
+                </ul>
+                <ul v-else class="right">
                     <li><a @click="toggleLogin" href="#">Log in</a></li>
                     <li><a @click="toggleRegister" href="#">Register</a></li>
                 </ul>
@@ -32,14 +36,14 @@
         </nav>
     <div class="row" v-if="showLogin">
         <div class="login-container">
-                <form v-on:submit.prevent="login" class="col s2">
+                <form v-on:submit.prevent="login()" class="col s2">
                         <div class="input-field col s12">
                             <input placeholder="username" v-model="username" type="text">
                         </div>
                         <div class="input-field col s12">
                             <input placeholder="password" v-model="password" type="text">
                         </div>
-                    <a @click="login" class="waves-effect waves-light btn">Submit</a>
+                    <button type="submit" class="waves-effect waves-light btn">Submit</button>
                 </form>
             </div>
         </div>
@@ -52,7 +56,7 @@
 
 
         <mainpage></mainpage>
-        <postpage></postpage>
+        <!--<postpage></postpage>-->
         <submit></submit>
 
 
@@ -77,6 +81,7 @@
 
 
     <script src="./app/main-service.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="./app/components/collection/e-service.js"></script>
     <script src="./app/components/collection/e-controller.js"></script>
     <script src="./app/components/form/form-service.js"></script>

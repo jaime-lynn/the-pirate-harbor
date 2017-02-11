@@ -1,28 +1,18 @@
 function MainService() {
 
-    this.login = function (username, password) {
+    this.login = function (username, password, cb) {
         var userLogin = {
             username: username,
             password: password
         }
-        $.post("./login", userLogin, function (user) {
-            alert(username + " has logged in")
-            return { username: user.username, _id: user._id }
-        })
+        $.post("/login", userLogin,cb)
     }
 
-    this.register = function (username, password) {
+    this.register = function (username, password, cb) {
         var userLogin = {
             username: username,
             password: password
         }
-        $.post("./register", userLogin, function (user) {
-            alert(username + " has been created")
-            return { username: user.username, _id: user._id }
-        })
+         $.post("/register", userLogin, cb)
     }
-
-
-
-
 }
