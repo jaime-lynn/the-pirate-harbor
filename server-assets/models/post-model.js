@@ -4,10 +4,10 @@ let ObjectId = Schema.Types.ObjectId
 
 let PostSchemaModel= new Schema({
   content:{type:String, required:true},
-  title:{type:String, required: true},
-  date: { type: String },
+  title:{ type:String, required: true },
+  date: { type: Number, required: true, default: Date.now() },
   votes:{type:Number, default: 0},
-  type: { type: String },
+  type: { type: String, required: true },
   //Relations
   userId:{type:ObjectId, ref:'User'},
   username: { type: String },
