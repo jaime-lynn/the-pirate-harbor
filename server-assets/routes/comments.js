@@ -7,7 +7,8 @@ let SubComment = require('../models/sub-comment-model');
 
 router.post('/posts/:id/comments', (req, res) => {
     var newComm = req.body;
-    newComm.userId = req.sessions.uid
+    newComm.userId = req.sessions.uid;
+    newComm.username = req.user.username;
     newComm.postId = req.params.id;
     Comment.create(newComm)
         .then(comment => {

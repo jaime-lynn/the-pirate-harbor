@@ -8,20 +8,21 @@ let SubComment = require('../models/sub-comment-model');
 router.post('/posts', (req, res) => {
     let newPost = req.body;
     newPost.userId = req.sessions.uid;
+    newPost.username = req.user.username;
+    if(req.sessions.uid){
     Post.create(newPost)
         .then(post => {
-            if(req.sessions.uid){
                 // res.redirect('/posts')
                 res.send({
                     data: post
                 })
-            } else {
-                res.send({message: 'You must be logged in to do that'})
-            }
         })
         .catch(error => {
             res.send({error: error})
         })
+    } else {
+        res.send({message: 'You must be logged in to do that'})
+    }
 });
 
 // GET/INDEX - list all posts
@@ -76,31 +77,31 @@ router.delete('/posts/:id', (req, res)=>{
 })
 
 router.put('/posts/:id', (req, res) =>{
-    Post.findByIdAndUpdate(req.params.id, {$set: req.body})
+    if(post.userId == req.sessions.uid) {
+        Post.findByIdAndUpdate(req.params.id, {$set: req.body})
         .then(post => {
-            if(post.userId == req.sessions.uid) {
                 res.redirect('/posts/' + req.params.id)
-            } else {
-                res.send({ message: 'You need to log in or this post doesn\'t belong to you!' })
-            }
-        })
+            })
         .catch(error => {
             res.send({error: error})
         })
+    } else {
+        res.send({message: 'You must be logged in, or this post does not belong to you.'})
+    }
 })
 
 router.put('/posts/:id/votes', (req, res) => {
-    Post.findByIdAndUpdate(req.params.id, {$set: {votes: req.body.votes}})
-        .then(post => {
-            if(req.sessions.uid){
-                res.send({data: post})
-            } else {
-                res.send({message: 'Log in please' })
-            }
-        })
-        .catch(error => {
-            res.send({error: error})
-        })
+    if(req.sessions.uid){
+        Post.findByIdAndUpdate(req.params.id, {$set: {votes: req.body.votes}})
+            .then(post => {
+                    res.send({data: post})
+            })
+            .catch(error => {
+                res.send({error: error})
+            })
+    } else {
+        res.send({message: 'You must be logged in to vote'})
+    }
 })
 
 

@@ -8,6 +8,8 @@ let SubCommentSchemaModel= new Schema({
   date:{type:Object},
   votes:{type:Number, default: 0},
   //Relations
+  userId: { type: ObjectId, ref: 'User' },
+  username: { type: String },
   commentId: { type: ObjectId, ref: 'Comment' },
   postId: { type: ObjectId, ref: 'Post' }
   

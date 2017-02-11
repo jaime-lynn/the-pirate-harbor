@@ -8,6 +8,8 @@ router.post('/posts/:postId/comments/:commentId/subcomments', (req, res) => {
     let newSub = req.body;
     newSub.postId = req.params.postId;
     newSub.commentId = req.params.commentId;
+    newSub.userId = req.sessions.uid;
+    newSub.username = req.user.username;
     SubComment.create(newSub)
         .then(subcomment => {
             res.send({
