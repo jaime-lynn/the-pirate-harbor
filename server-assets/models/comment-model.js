@@ -9,6 +9,7 @@ let CommentSchemaModel= new Schema({
   //Relations
   userId:{type:ObjectId, ref:'User'},
   username: { type: String },
+  // showCommentForm: {type: Boolean, default: false},
   postId:{type: ObjectId, ref: 'Post' },
   subComments:[{type:ObjectId, ref:'SubComment'}]
 })

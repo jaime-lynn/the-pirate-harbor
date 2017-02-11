@@ -7,9 +7,7 @@ let SubComment = require('../models/sub-comment-model');
 
 router.post('/posts/:id/comments', (req, res) => {
     var newComm = req.body;
-    newComm.userId = req.body.user._id;
-    newComm.username = req.body.user.username;
-    if(req.body.user){
+    if(req.body.username){
         Comment.create(newComm)
             .then(comment => {
                 res.send({
@@ -31,8 +29,7 @@ router.delete('/posts/:postId/comments/:commentId', (req, res) => {
             if (comment.userId == req.body.user._id) {
                 Comment.findByIdAndRemove(req.params.commentId)
                     .then(comment => {
-                        console.log(comment)
-                        res.redirect('/posts/' + req.params.postId)
+                        res.send({ message: 'Your comment will be deleted.' })
                     })
                     .catch(error => {
                         res.send({ error: error })
